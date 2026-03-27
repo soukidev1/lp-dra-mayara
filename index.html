@@ -832,7 +832,19 @@
     ========================================================== */
     @media (min-width: 769px) {
       /* Hero desktop */
-      .hero__content { padding: 48px 60px 56px; max-width: 680px; }
+      #hero          { min-height: 90svh; }
+      .hero__content { padding: 48px 60px 88px; max-width: 720px; }
+      /* Headline + subtitle */
+      .hero__content h1   { font-size: clamp(52px, 5.5vw, 80px); }
+      .hero__subtitle     { font-size: 19px; max-width: 560px; }
+      /* Trust block */
+      .hero__trust        { gap: 24px; padding-top: 20px; }
+      .trust-big          { font-size: 24px; }
+      .trust-stars        { font-size: 12px; }
+      .trust-count        { font-size: 11px; }
+      .trust-sep          { height: 40px; }
+      .trust-crm-label    { font-size: 10px; }
+      .trust-crm-num      { font-size: 15px; }
       /* Ribbon: static + centered on desktop */
       .ribbon__track {
         animation: none;

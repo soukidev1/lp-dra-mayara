@@ -871,13 +871,14 @@
     ========================================================== */
     @media (max-width: 768px) {
       /* Hero */
-      #hero          { min-height: 88svh; }
+      #hero          { min-height: 80svh; }
       .hero__content { padding: 20px 20px max(28px, env(safe-area-inset-bottom, 28px)); gap: 12px; }
+      .hero__buttons { align-items: flex-start; }
 
       /* Sobre */
-      .sobre__grid   { grid-template-columns: 1fr; min-height: auto; }
+      .sobre__grid   { grid-template-columns: 1fr; min-height: auto; max-height: none; }
       .sobre__photo  { min-height: 260px; height: 55vw; }
-      .sobre__content { padding: 48px 24px; }
+      .sobre__content { padding: 48px 24px 72px; }
       .sobre__pill   { letter-spacing: 1.5px; }
       .crm-badge     { letter-spacing: 1px; }
 
@@ -897,8 +898,14 @@
       /* Footer */
       .footer__inner { flex-direction: column; align-items: center; text-align: center; }
       .footer__right { text-align: center; }
-      /* CTA button */
-      .btn--white-on-rose { align-self: center; width: auto; }
+      /* Buttons */
+      .btn--white-on-rose {
+        align-self: center;
+        white-space: normal;
+        text-align: center;
+        padding: 14px 28px;
+        letter-spacing: 2px;
+      }
     }
 
     @media (min-width: 600px) and (max-width: 768px) {

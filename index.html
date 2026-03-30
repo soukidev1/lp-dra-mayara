@@ -640,43 +640,63 @@
       background: var(--off-white);
       padding: var(--section-pad) 0;
     }
-    .resultados__grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
-      max-width: var(--container);
-      margin: 0 auto;
+    /* ── Carrossel antes e depois ───────────────────── */
+    .carousel { position: relative; }
+    .carousel__viewport { overflow: hidden; width: 100%; }
+    .carousel__track {
+      display: flex;
+      align-items: stretch;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
     }
-    .resultados__item {
+    .carousel__slide {
+      flex: 0 0 520px;
+      margin: 0 14px;
       overflow: hidden;
+      opacity: 0.3;
+      transform: scale(0.97);
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
-    .resultados__item img {
+    .carousel__slide.is-active { opacity: 1; transform: scale(1); }
+    .carousel__slide img {
       width: 100%;
-      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
       display: block;
-      transition: transform 0.6s ease;
     }
-    .resultados__item:hover img {
-      transform: scale(1.04);
+    .carousel__btn {
+      position: absolute;
+      top: calc(50% - 28px);
+      transform: translateY(-50%);
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      border: 0.5px solid rgba(196,120,138,0.35);
+      color: var(--rose);
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
     }
-    .resultados__disclaimer {
-      text-align: center;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      color: var(--gold);
-      opacity: 0.7;
-      margin-top: 20px;
-      padding: 0 clamp(20px, 4vw, 60px);
+    .carousel__btn:hover { background: #fff; }
+    .carousel__btn--prev { left: 16px; }
+    .carousel__btn--next { right: 16px; }
+    .carousel__dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding-top: 24px;
     }
-    /* Stagger */
-    .has-io .resultados__item:nth-child(1) { transition-delay: 0ms; }
-    .has-io .resultados__item:nth-child(2) { transition-delay: 80ms; }
-    .has-io .resultados__item:nth-child(3) { transition-delay: 160ms; }
-    .has-io .resultados__item:nth-child(4) { transition-delay: 240ms; }
-    .has-io .resultados__item:nth-child(5) { transition-delay: 320ms; }
-    .has-io .resultados__item:nth-child(6) { transition-delay: 400ms; }
-    .has-io .resultados__item:nth-child(7) { transition-delay: 480ms; }
-    .has-io .resultados__item:nth-child(8) { transition-delay: 560ms; }
+    .carousel__dot {
+      width: 6px; height: 6px;
+      border-radius: 3px;
+      background: rgba(196,120,138,0.3);
+      border: none; cursor: pointer;
+      padding: 0;
+      transition: width 0.3s ease, background 0.3s ease;
+    }
+    .carousel__dot.is-active { width: 20px; background: var(--rose); }
 
     /* ==========================================================
        13. CTA FINAL
@@ -899,8 +919,10 @@
       .clinica__content { order: -1; }
       .google-card      { order: 1; }
 
-      /* Resultados */
-      .resultados__grid { grid-template-columns: repeat(2, 1fr); }
+      /* Carrossel */
+      .carousel__slide     { flex: 0 0 82vw; margin: 0 6px; }
+      .carousel__btn--prev { left: 8px; }
+      .carousel__btn--next { right: 8px; }
       /* Diferenciais */
       .pqm__grid { grid-template-columns: 1fr; }
       /* Mapa */
@@ -934,7 +956,6 @@
     }
 
     @media (min-width: 600px) and (max-width: 768px) {
-      .resultados__grid  { grid-template-columns: repeat(2, 1fr); }
       .depoimentos__grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
@@ -951,29 +972,8 @@
       <img src="fotos/logo.png" alt="Dra. Mayara Sasaki">
     </a>
 
-    <ul class="navbar__links" id="navMenu">
-      <li><a href="#resultados">Resultados</a></li>
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#clinica">Clínica</a></li>
-      <li><a href="#depoimentos">Depoimentos</a></li>
-      <!-- Visível apenas no menu mobile -->
-      <li class="nav-mobile-cta">
-        <!-- TODO: Substituir XXXXXXXXX pelo número real em TODOS os links WhatsApp -->
-        <a href="https://api.whatsapp.com/send/?phone=5531997645936&text=Oi,%C2%A0gostaria%C2%A0de%C2%A0agendar%C2%A0uma%C2%A0avalia%C3%A7%C3%A3o%C2%A0com%C2%A0a%C2%A0Dra.%C2%A0Mayara"
-           class="btn btn--rose" target="_blank" rel="noopener">Agendar Consulta</a>
-      </li>
-    </ul>
-
-    <!-- CTA desktop (visível apenas em telas > 768px) -->
     <a href="https://api.whatsapp.com/send/?phone=5531997645936&text=Oi,%C2%A0gostaria%C2%A0de%C2%A0agendar%C2%A0uma%C2%A0avalia%C3%A7%C3%A3o%C2%A0com%C2%A0a%C2%A0Dra.%C2%A0Mayara"
-       class="btn btn--rose navbar__cta-desktop" target="_blank" rel="noopener">Agendar Consulta</a>
-
-    <button class="navbar__hamburger" id="hamburger"
-            aria-label="Abrir menu" aria-expanded="false" aria-controls="navMenu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+       class="btn btn--rose" target="_blank" rel="noopener">Agendar Consulta</a>
 
   </div>
 </header>
@@ -1045,39 +1045,47 @@
     </div>
   </div>
 
-  <div class="resultados__grid">
-    <figure class="resultados__item animate-on-scroll">
-      <img src="fotos/antes%20e%20depois/13f900df-7707-4261-9ef3-4f5877f4f110.jpg"
-           alt="Resultado de harmonização facial" loading="lazy">
-    </figure>
-    <figure class="resultados__item animate-on-scroll">
-      <img src="fotos/antes%20e%20depois/2a2dae20-0b66-4a5e-8333-b6b3e068ddbf.jpg"
-           alt="Resultado de harmonização facial" loading="lazy">
-    </figure>
-    <figure class="resultados__item animate-on-scroll">
-      <img src="fotos/antes%20e%20depois/44a30012-2a16-447f-9972-87edbdb8ed17.jpg"
-           alt="Resultado de harmonização facial" loading="lazy">
-    </figure>
-    <figure class="resultados__item animate-on-scroll">
-      <img src="fotos/antes%20e%20depois/5a91ed6c-7dfc-4195-ac9d-aab7694aeb23.jpg"
-           alt="Resultado de harmonização facial" loading="lazy">
-    </figure>
-    <figure class="resultados__item animate-on-scroll">
-      <img src="fotos/antes%20e%20depois/a0b88c88-4a24-43bf-a68d-e128c469d0d0.jpg"
-           alt="Resultado de harmonização facial" loading="lazy">
-    </figure>
-    <figure class="resultados__item animate-on-scroll">
-      <img src="fotos/antes%20e%20depois/b7a58fee-27d7-4edb-ac07-8b88ec202964.jpg"
-           alt="Resultado de harmonização facial" loading="lazy">
-    </figure>
-    <figure class="resultados__item animate-on-scroll">
-      <img src="fotos/antes%20e%20depois/ef7bb2ac-2895-445b-9641-33f64d91788b.jpg"
-           alt="Resultado de harmonização facial" loading="lazy">
-    </figure>
-    <figure class="resultados__item animate-on-scroll">
-      <img src="fotos/antes%20e%20depois/f99fb76f-7d75-4810-823f-dd907b602d05.jpg"
-           alt="Resultado de harmonização facial" loading="lazy">
-    </figure>
+  <div class="carousel animate-on-scroll" id="resultadosCarousel">
+    <button class="carousel__btn carousel__btn--prev" aria-label="Anterior">&#8592;</button>
+    <div class="carousel__viewport">
+      <div class="carousel__track">
+        <figure class="carousel__slide">
+          <img src="fotos/antes%20e%20depois/atualizado/1.png" alt="Resultado antes e depois — caso 1" loading="lazy">
+        </figure>
+        <figure class="carousel__slide">
+          <img src="fotos/antes%20e%20depois/atualizado/2.png" alt="Resultado antes e depois — caso 2" loading="lazy">
+        </figure>
+        <figure class="carousel__slide">
+          <img src="fotos/antes%20e%20depois/atualizado/3.png" alt="Resultado antes e depois — caso 3" loading="lazy">
+        </figure>
+        <figure class="carousel__slide">
+          <img src="fotos/antes%20e%20depois/atualizado/4.png" alt="Resultado antes e depois — caso 4" loading="lazy">
+        </figure>
+        <figure class="carousel__slide">
+          <img src="fotos/antes%20e%20depois/atualizado/5.png" alt="Resultado antes e depois — caso 5" loading="lazy">
+        </figure>
+        <figure class="carousel__slide">
+          <img src="fotos/antes%20e%20depois/atualizado/6.png" alt="Resultado antes e depois — caso 6" loading="lazy">
+        </figure>
+        <figure class="carousel__slide">
+          <img src="fotos/antes%20e%20depois/atualizado/7.png" alt="Resultado antes e depois — caso 7" loading="lazy">
+        </figure>
+        <figure class="carousel__slide">
+          <img src="fotos/antes%20e%20depois/atualizado/8.png" alt="Resultado antes e depois — caso 8" loading="lazy">
+        </figure>
+      </div>
+    </div>
+    <button class="carousel__btn carousel__btn--next" aria-label="Próximo">&#8594;</button>
+    <div class="carousel__dots">
+      <button class="carousel__dot" aria-label="Slide 1"></button>
+      <button class="carousel__dot" aria-label="Slide 2"></button>
+      <button class="carousel__dot" aria-label="Slide 3"></button>
+      <button class="carousel__dot" aria-label="Slide 4"></button>
+      <button class="carousel__dot" aria-label="Slide 5"></button>
+      <button class="carousel__dot" aria-label="Slide 6"></button>
+      <button class="carousel__dot" aria-label="Slide 7"></button>
+      <button class="carousel__dot" aria-label="Slide 8"></button>
+    </div>
   </div>
   <div class="section-cta animate-on-scroll">
     <a href="https://api.whatsapp.com/send/?phone=5531997645936&text=Oi,%C2%A0gostaria%C2%A0de%C2%A0agendar%C2%A0uma%C2%A0avalia%C3%A7%C3%A3o%C2%A0com%C2%A0a%C2%A0Dra.%C2%A0Mayara"
@@ -1472,23 +1480,19 @@
 
   /* ── 3. Menu mobile ── */
   function openMenu() {
-    navMenu.classList.add('is-open');
-    hamburger.setAttribute('aria-expanded', 'true');
-    hamburger.classList.add('is-active');
+    if (navMenu) navMenu.classList.add('is-open');
+    if (hamburger) { hamburger.setAttribute('aria-expanded', 'true'); hamburger.classList.add('is-active'); }
   }
   function closeMenu() {
-    navMenu.classList.remove('is-open');
-    hamburger.setAttribute('aria-expanded', 'false');
-    hamburger.classList.remove('is-active');
+    if (navMenu) navMenu.classList.remove('is-open');
+    if (hamburger) { hamburger.setAttribute('aria-expanded', 'false'); hamburger.classList.remove('is-active'); }
   }
 
-  hamburger.addEventListener('click', function () {
-    navMenu.classList.contains('is-open') ? closeMenu() : openMenu();
-  });
-
-  document.addEventListener('click', function (e) {
-    if (!navbar.contains(e.target)) closeMenu();
-  });
+  if (hamburger) {
+    hamburger.addEventListener('click', function () {
+      navMenu && navMenu.classList.contains('is-open') ? closeMenu() : openMenu();
+    });
+  }
 
   /* ── 4. Intersection Observer — animações de entrada ── */
   if ('IntersectionObserver' in window) {
@@ -1565,6 +1569,61 @@
     }
   }());
 
+}());
+
+/* ── Carrossel Antes e Depois ───────────────────────── */
+(function () {
+  var car = document.getElementById('resultadosCarousel');
+  if (!car) return;
+  var vp     = car.querySelector('.carousel__viewport');
+  var track  = car.querySelector('.carousel__track');
+  var slides = Array.from(track.querySelectorAll('.carousel__slide'));
+  var dots   = Array.from(car.querySelectorAll('.carousel__dot'));
+  var btnP   = car.querySelector('.carousel__btn--prev');
+  var btnN   = car.querySelector('.carousel__btn--next');
+  var cur    = 0;
+  var timer;
+
+  function getOffset(i) {
+    var vpW = vp.offsetWidth;
+    var sl  = slides[i];
+    return vpW / 2 - sl.offsetLeft - sl.offsetWidth / 2;
+  }
+
+  function goTo(i) {
+    slides[cur].classList.remove('is-active');
+    dots[cur].classList.remove('is-active');
+    cur = ((i % slides.length) + slides.length) % slides.length;
+    slides[cur].classList.add('is-active');
+    dots[cur].classList.add('is-active');
+    track.style.transform = 'translateX(' + getOffset(cur) + 'px)';
+  }
+
+  function startAuto() {
+    clearInterval(timer);
+    timer = setInterval(function () { goTo(cur + 1); }, 3000);
+  }
+
+  btnP.addEventListener('click', function () { goTo(cur - 1); startAuto(); });
+  btnN.addEventListener('click', function () { goTo(cur + 1); startAuto(); });
+  dots.forEach(function (d, i) {
+    d.addEventListener('click', function () { goTo(i); startAuto(); });
+  });
+
+  /* Init sem animação de posição */
+  track.style.transition = 'none';
+  slides[0].classList.add('is-active');
+  dots[0].classList.add('is-active');
+  track.style.transform = 'translateX(' + getOffset(0) + 'px)';
+  requestAnimationFrame(function () { track.style.transition = ''; });
+  startAuto();
+
+  /* Recalcular no resize */
+  window.addEventListener('resize', function () {
+    track.style.transition = 'none';
+    track.style.transform = 'translateX(' + getOffset(cur) + 'px)';
+    requestAnimationFrame(function () { track.style.transition = ''; });
+  });
 }());
 </script>
 

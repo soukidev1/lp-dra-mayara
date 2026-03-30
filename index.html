@@ -697,6 +697,7 @@
       transition: width 0.3s ease, background 0.3s ease;
     }
     .carousel__dot.is-active { width: 20px; background: var(--rose); }
+    .carousel__controls { /* desktop: botões escapam via position:absolute */ }
 
     /* ==========================================================
        13. CTA FINAL
@@ -920,9 +921,16 @@
       .google-card      { order: 1; }
 
       /* Carrossel */
-      .carousel__slide     { flex: 0 0 82vw; margin: 0 6px; }
-      .carousel__btn--prev { left: 8px; }
-      .carousel__btn--next { right: 8px; }
+      .carousel__slide { flex: 0 0 82vw; margin: 0 6px; }
+      .carousel__controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding-top: 16px;
+      }
+      .carousel__btn  { position: static; transform: none; }
+      .carousel__dots { padding-top: 0; }
       /* Diferenciais */
       .pqm__grid { grid-template-columns: 1fr; }
       /* Mapa */
@@ -1046,7 +1054,6 @@
   </div>
 
   <div class="carousel animate-on-scroll" id="resultadosCarousel">
-    <button class="carousel__btn carousel__btn--prev" aria-label="Anterior">&#8592;</button>
     <div class="carousel__viewport">
       <div class="carousel__track">
         <figure class="carousel__slide">
@@ -1075,16 +1082,19 @@
         </figure>
       </div>
     </div>
-    <button class="carousel__btn carousel__btn--next" aria-label="Próximo">&#8594;</button>
-    <div class="carousel__dots">
-      <button class="carousel__dot" aria-label="Slide 1"></button>
-      <button class="carousel__dot" aria-label="Slide 2"></button>
-      <button class="carousel__dot" aria-label="Slide 3"></button>
-      <button class="carousel__dot" aria-label="Slide 4"></button>
-      <button class="carousel__dot" aria-label="Slide 5"></button>
-      <button class="carousel__dot" aria-label="Slide 6"></button>
-      <button class="carousel__dot" aria-label="Slide 7"></button>
-      <button class="carousel__dot" aria-label="Slide 8"></button>
+    <div class="carousel__controls">
+      <button class="carousel__btn carousel__btn--prev" aria-label="Anterior">&#8592;</button>
+      <div class="carousel__dots">
+        <button class="carousel__dot" aria-label="Slide 1"></button>
+        <button class="carousel__dot" aria-label="Slide 2"></button>
+        <button class="carousel__dot" aria-label="Slide 3"></button>
+        <button class="carousel__dot" aria-label="Slide 4"></button>
+        <button class="carousel__dot" aria-label="Slide 5"></button>
+        <button class="carousel__dot" aria-label="Slide 6"></button>
+        <button class="carousel__dot" aria-label="Slide 7"></button>
+        <button class="carousel__dot" aria-label="Slide 8"></button>
+      </div>
+      <button class="carousel__btn carousel__btn--next" aria-label="Próximo">&#8594;</button>
     </div>
   </div>
   <div class="section-cta animate-on-scroll">

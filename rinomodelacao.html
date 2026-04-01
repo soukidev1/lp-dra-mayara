@@ -1488,7 +1488,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="modal__field">
         <label for="leadPhone">Seu WhatsApp</label>
         <input type="tel" id="leadPhone" name="phone" placeholder="(00) 00000-0000" required autocomplete="tel">
-        <span id="phoneError" class="modal__error">Digite o DDD + número (10 ou 11 dígitos).</span>
+        <span id="phoneError" class="modal__error">Digite o DDD e o número completo.</span>
       </div>
       <button type="submit" class="btn btn--rose modal__submit">Continuar para o WhatsApp</button>
     </form>
@@ -1723,17 +1723,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
   });
 
+  /* ── Máscara telefone ── */
+  function phoneMask(v) {
+    var d = v.replace(/\D/g, '').slice(0, 11);
+    if (!d) return '';
+    if (d.length <= 2)  return '(' + d;
+    if (d.length <= 6)  return '(' + d.slice(0,2) + ') ' + d.slice(2);
+    if (d.length <= 10) return '(' + d.slice(0,2) + ') ' + d.slice(2,6) + '-' + d.slice(6);
+    return '(' + d.slice(0,2) + ') ' + d[2] + ' ' + d.slice(3,7) + '-' + d.slice(7);
+  }
+
+  var phoneInput = document.getElementById('leadPhone');
+  var phoneError = document.getElementById('phoneError');
+
+  phoneInput.addEventListener('input', function () {
+    this.value = phoneMask(this.value);
+    var d = this.value.replace(/\D/g, '');
+    if (d.length > 2 && d.length < 10) {
+      phoneError.classList.add('is-visible');
+    } else {
+      phoneError.classList.remove('is-visible');
+    }
+  });
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var name       = document.getElementById('leadName').value.trim();
-    var phone      = document.getElementById('leadPhone').value.trim();
-    var phoneError = document.getElementById('phoneError');
-    var digits     = phone.replace(/\D/g, '');
+    var name   = document.getElementById('leadName').value.trim();
+    var phone  = document.getElementById('leadPhone').value.trim();
+    var digits = phone.replace(/\D/g, '');
     phoneError.classList.remove('is-visible');
-    if (!name || digits.length < 10 || digits.length > 11) {
-      if (digits.length < 10 || digits.length > 11) {
-        phoneError.classList.add('is-visible');
-      }
+    if (!name || digits.length < 10) {
+      if (digits.length < 10) phoneError.classList.add('is-visible');
       return;
     }
 

@@ -936,6 +936,8 @@
     .modal__field input::placeholder { color: rgba(74, 56, 48, 0.35); }
     .modal__submit { width: 100%; text-align: center; margin-top: 4px; }
     @media (max-width: 480px) { .modal__card { padding: 32px 24px; } }
+    .modal__error { font-size: 11px; color: var(--rose-dark); margin-top: 2px; display: none; }
+    .modal__error.is-visible { display: block; }
   </style>
 </head>
 <body>
@@ -976,10 +978,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="hero__overlay"></div>
   <div class="hero__content animate-on-scroll">
     <p class="tag hero__tag">Rinomodelação · Belo Horizonte</p>
-    <h1>Nariz <em>harmonizado</em> sem cirurgia<br>em Belo Horizonte</h1>
+    <h1>Rinomodelação sem cirurgia em Belo Horizonte.</h1>
     <p class="hero__subtitle">
-      Procedimento minimamente invasivo, realizado por médica com CRM ativo.
-      Resultado imediato. Sem bisturi, sem internação.
+      Resultado natural em uma sessão, sem bisturi e sem internação.
+      Dra. Mayara Sasaki — médica especialista em Harmonização Facial.
     </p>
     <div class="hero__buttons">
       <a href="https://api.whatsapp.com/send/?phone=5531997645936&text=Oi%2C%20tenho%20interesse%20em%20rinomodela%C3%A7%C3%A3o%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20a%20Dra.%20Mayara"
@@ -1052,7 +1054,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </svg>
         </div>
         <h3>Como é realizado</h3>
-        <p>Com agulha fina ou cânula, aplico pequenas quantidades de preenchedor em pontos estratégicos. O procedimento dura cerca de 30 minutos e o resultado é imediato — você sai do consultório com o resultado visível.</p>
+        <p>Com agulha fina ou cânula, aplico pequenas quantidades de preenchedor em pontos estratégicos. O procedimento dura cerca de 30 minutos e o resultado é imediato. Você sai do consultório com o resultado visível.</p>
       </div>
 
       <div class="pqm__card animate-on-scroll">
@@ -1062,7 +1064,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </svg>
         </div>
         <h3>Para quem é indicado</h3>
-        <p>Para quem deseja corrigir assimetrias, afinar a ponta, elevar a base, reduzir visualmente a giba ou tornar o nariz mais proporcional ao rosto — tudo isso sem recorrer à cirurgia.</p>
+        <p>Para quem deseja corrigir assimetrias, afinar a ponta, elevar a base, reduzir visualmente a giba ou tornar o nariz mais proporcional ao rosto, sem recorrer à cirurgia.</p>
       </div>
 
     </div>
@@ -1187,7 +1189,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </p>
       <p class="sobre__bio">
         Cada atendimento começa com escuta. Entendo o que você quer, avalio o que faz sentido
-        para o seu rosto e só então indico o procedimento ideal — sem pressão, sem protocolo genérico.
+        para o seu rosto e só então indico o procedimento ideal, sem pressão e sem protocolo genérico.
       </p>
       <div class="sobre__pills">
         <span class="sobre__pill">Medicina Estética</span>
@@ -1302,7 +1304,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <article class="card card--depoimento animate-on-scroll">
       <div class="stars" aria-label="5 estrelas">★★★★★</div>
       <blockquote>
-        <p>"Pesquisei o espaço pra fazer limpeza de pele. Já tinha um trauma com relação a esse procedimento feito em outro lugar antes. Pois bem, após ler avaliações eu dei uma chance e amei muito — inclusive minha irmã e minha mãe também adoraram."</p>
+        <p>"Pesquisei o espaço pra fazer limpeza de pele. Já tinha um trauma com relação a esse procedimento feito em outro lugar antes. Pois bem, após ler avaliações eu dei uma chance e amei muito. Inclusive minha irmã e minha mãe também adoraram."</p>
       </blockquote>
       <footer>
         <div class="avatar" style="background-color:#7A6B55;" role="img" aria-label="Foto de Bruna Neves">B</div>
@@ -1395,7 +1397,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </svg>
         </button>
         <div class="faq__answer">
-          <p>Utilizamos anestesia tópica e, quando necessário, anestesia local. O desconforto é mínimo — a maioria das pacientes descreve como uma leve pressão, sem impedir o retorno às atividades no mesmo dia.</p>
+          <p>Utilizamos anestesia tópica e, quando necessário, anestesia local. O desconforto é mínimo: a maioria das pacientes descreve como uma leve pressão, sem impedir o retorno às atividades no mesmo dia.</p>
         </div>
       </div>
 
@@ -1407,7 +1409,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </svg>
         </button>
         <div class="faq__answer">
-          <p>A rinoplastia é uma cirurgia: envolve anestesia geral, internação e recuperação de semanas. A rinomodelação é um procedimento de consultório — sem bisturi, sem pontos, com retorno imediato às atividades. Cada opção tem suas indicações; na consulta avaliamos o que faz mais sentido para o seu caso.</p>
+          <p>A rinoplastia é uma cirurgia: envolve anestesia geral, internação e recuperação de semanas. A rinomodelação é um procedimento de consultório, sem bisturi, sem pontos, com retorno imediato às atividades. Cada opção tem suas indicações; na consulta avaliamos o que faz mais sentido para o seu caso.</p>
         </div>
       </div>
 
@@ -1443,7 +1445,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </svg>
         </button>
         <div class="faq__answer">
-          <p>Clique no botão de WhatsApp e fale diretamente comigo. Respondo pessoalmente em poucos minutos. Juntas avaliamos se a rinomodelação é o procedimento certo para o que você deseja — sem pressão, sem compromisso.</p>
+          <p>Clique no botão de WhatsApp e fale diretamente comigo. Respondo pessoalmente em poucos minutos. Juntas avaliamos se a rinomodelação é o procedimento certo para o que você deseja, sem pressão e sem compromisso.</p>
         </div>
       </div>
 
@@ -1464,7 +1466,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      class="btn btn--white-on-rose" target="_blank" rel="noopener">
     Falar com a Dra. Mayara no WhatsApp
   </a>
-  <span class="micro-copy">Resposta em até 1h · Sem compromisso</span>
 </section>
 
 </main>
@@ -1487,6 +1488,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="modal__field">
         <label for="leadPhone">Seu WhatsApp</label>
         <input type="tel" id="leadPhone" name="phone" placeholder="(00) 00000-0000" required autocomplete="tel">
+        <span id="phoneError" class="modal__error">Digite o DDD + número (10 ou 11 dígitos).</span>
       </div>
       <button type="submit" class="btn btn--rose modal__submit">Continuar para o WhatsApp</button>
     </form>
@@ -1704,6 +1706,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     form.reset();
+    var phoneError = document.getElementById('phoneError');
+    if (phoneError) phoneError.classList.remove('is-visible');
   }
 
   document.querySelectorAll('a[href*="api.whatsapp.com"]').forEach(function (link) {
@@ -1721,9 +1725,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var name  = document.getElementById('leadName').value.trim();
-    var phone = document.getElementById('leadPhone').value.trim();
-    if (!name || !phone) return;
+    var name       = document.getElementById('leadName').value.trim();
+    var phone      = document.getElementById('leadPhone').value.trim();
+    var phoneError = document.getElementById('phoneError');
+    var digits     = phone.replace(/\D/g, '');
+    phoneError.classList.remove('is-visible');
+    if (!name || digits.length < 10 || digits.length > 11) {
+      if (digits.length < 10 || digits.length > 11) {
+        phoneError.classList.add('is-visible');
+      }
+      return;
+    }
 
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({

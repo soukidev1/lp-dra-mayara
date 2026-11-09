@@ -823,8 +823,26 @@
       if (event.key === 'Escape' && modal.classList.contains('open')) closeModal();
     });
 
+    /* Quem digita ou preenche com +55 não perde o final do número. O DDD 55 continua valendo: (55) 9 xxxx-xxxx. */
+    function phoneDigits(v) {
+      var d = String(v).replace(/\D/g, '').replace(/^0+/, '');
+      if (d.slice(0, 2) === '55' && (d.length >= 13 || (d.length === 12 && d[2] !== '9'))) d = d.slice(2);
+      return d.slice(0, 11);
+    }
+    /* 11 dígitos só valem para celular, com 9 depois do DDD. */
+    function phoneProblem(d) {
+      if (d.length < 10) return 'Digite o DDD e o número completo.';
+      if (d.length === 11 && d[2] !== '9') return 'Confira o número: DDD + celular, sem o 55.';
+      return '';
+    }
+    /* O envio ao CRM (crm-intake.js) ignora número marcado como inválido. */
+    function markPhone(input, d) {
+      if (phoneProblem(d)) input.dataset.leadInvalid = 'true';
+      else delete input.dataset.leadInvalid;
+    }
+
     phoneInput.addEventListener('input', function() {
-      var digits = phoneInput.value.replace(/\D/g, '').slice(0, 11);
+      var digits = phoneDigits(phoneInput.value);
       if (digits.length > 6) {
         phoneInput.value = '(' + digits.slice(0, 2) + ') ' + digits.slice(2, 7) + '-' + digits.slice(7);
       } else if (digits.length > 2) {
@@ -832,18 +850,23 @@
       } else {
         phoneInput.value = digits;
       }
+      markPhone(phoneInput, digits);
+      phoneError.textContent = 'Digite o DDD e o número completo.';
       phoneError.classList.remove('show');
     });
 
     leadForm.addEventListener('submit', function(event) {
       event.preventDefault();
       var name = document.getElementById('leadName').value.trim();
-      var phone = phoneInput.value.replace(/\D/g, '');
+      var phone = phoneDigits(phoneInput.value);
+      var problem = phoneProblem(phone);
+      markPhone(phoneInput, phone);
       if (!name) {
         document.getElementById('leadName').focus();
         return;
       }
-      if (phone.length < 10) {
+      if (problem) {
+        phoneError.textContent = problem;
         phoneError.classList.add('show');
         phoneInput.focus();
         return;

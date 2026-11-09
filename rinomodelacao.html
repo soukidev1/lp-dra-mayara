@@ -1737,8 +1737,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   });
 
   /* ── Máscara telefone ── */
+  /* Quem digita ou preenche com +55 não perde o final do número. O DDD 55 continua valendo: (55) 9 xxxx-xxxx. */
+  function phoneDigits(v) {
+    var d = String(v).replace(/\D/g, '').replace(/^0+/, '');
+    if (d.slice(0, 2) === '55' && (d.length >= 13 || (d.length === 12 && d[2] !== '9'))) d = d.slice(2);
+    return d.slice(0, 11);
+  }
+  /* 11 dígitos só valem para celular, com 9 depois do DDD. */
+  function phoneProblem(d) {
+    if (d.length < 10) return 'Digite o DDD e o número completo.';
+    if (d.length === 11 && d[2] !== '9') return 'Confira o número: DDD + celular, sem o 55.';
+    return '';
+  }
+  /* O envio ao CRM (crm-intake.js) ignora número marcado como inválido. */
+  function markPhone(input, d) {
+    if (phoneProblem(d)) input.dataset.leadInvalid = 'true';
+    else delete input.dataset.leadInvalid;
+  }
   function phoneMask(v) {
-    var d = v.replace(/\D/g, '').slice(0, 11);
+    var d = phoneDigits(v);
     if (!d) return '';
     if (d.length <= 2)  return '(' + d;
     if (d.length <= 6)  return '(' + d.slice(0,2) + ') ' + d.slice(2);
@@ -1752,6 +1769,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   phoneInput.addEventListener('input', function () {
     this.value = phoneMask(this.value);
     var d = this.value.replace(/\D/g, '');
+    markPhone(this, d);
+    phoneError.textContent = 'Digite o DDD e o número completo.';
     if (d.length > 2 && d.length < 10) {
       phoneError.classList.add('is-visible');
     } else {
@@ -1762,11 +1781,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var name   = document.getElementById('leadName').value.trim();
-    var phone  = document.getElementById('leadPhone').value.trim();
+    phoneInput.value = phoneMask(phoneInput.value);
+    var phone  = phoneInput.value;
     var digits = phone.replace(/\D/g, '');
+    var problem = phoneProblem(digits);
+    markPhone(phoneInput, digits);
     phoneError.classList.remove('is-visible');
-    if (!name || digits.length < 10) {
-      if (digits.length < 10) phoneError.classList.add('is-visible');
+    if (!name || problem) {
+      if (problem) {
+        phoneError.textContent = problem;
+        phoneError.classList.add('is-visible');
+        phoneInput.focus();
+      }
       return;
     }
 
